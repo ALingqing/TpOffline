@@ -24,15 +24,28 @@ jobs:
 
       # 每个分支只构建该版本适用的平台（目录存在的平台才会被构建）
       - name: Build platforms
+        shell: bash
         run: |
-          set -e
+          set -eo pipefail
           for platform in fabric forge neoforge; do
             if [ -f "$platform/build.gradle" ]; then
               echo "==> Building $platform"
-              ./gradlew -p "$platform" build
+              ./gradlew -p "$platform" build --console=plain 2>&1 | tee "/tmp/gradle-$platform.log"
             else
               echo "==> $platform 不适用于本分支，跳过"
             fi
+          done
+
+      - name: Report build errors
+        if: failure()
+        shell: bash
+        run: |
+          for f in /tmp/gradle-*.log; do
+            [ -f "$f" ] || continue
+            echo "::error::===== $(basename "$f") ====="
+            grep -E 'What went wrong|Could not|Caused by|FAILURE|Execution failed|> Task.*FAILED|error:' "$f" | tail -40 | while IFS= read -r line; do
+              echo "::error::$line"
+            done
           done
 
       - name: Upload artifacts
