@@ -1,13 +1,11 @@
 plugins {
-    id 'net.minecraftforge.gradle' version '6.0.25'
+    id 'net.minecraftforge.gradle' version '4.1.16'
 }
 
 group = 'com.chenray'
 version = project.mod_version
 
-base {
-    archivesName = 'tpoffline-forge'
-}
+archivesBaseName = 'tpoffline-forge'
 
 // 共享 common 源码（跨平台核心逻辑）
 sourceSets {
@@ -17,12 +15,11 @@ sourceSets {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.20.1'
-    reobf = false
+    mappings channel: 'official', version: '1.16.5'
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.20.1-47.3.0"
+    minecraft "net.minecraftforge:forge:1.16.5-36.2.42"
 }
 
 processResources {
@@ -33,18 +30,17 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    // Forge 1.20.1 目标为 Java 17
-    it.options.release = 17
+    // Forge 1.16.5 目标为 Java 8
+    it.options.release = 8
 }
 
 java {
-    // 编译目标 Java 17（用当前 JDK 21 编译）
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 jar {
     from("${rootDir}/../LICENSE") {
-        rename { "${it}_${project.base.archivesName.get()}" }
+        rename { "${it}_${project.archivesBaseName}" }
     }
 }

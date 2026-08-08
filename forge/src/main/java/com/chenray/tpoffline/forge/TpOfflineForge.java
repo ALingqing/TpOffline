@@ -27,8 +27,8 @@ public class TpOfflineForge {
 
     @SubscribeEvent
     public void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player) {
-            TpOfflineCommon.onPlayerQuit(player);
+        if (event.getEntity() instanceof ServerPlayer) {
+            TpOfflineCommon.onPlayerQuit((ServerPlayer) event.getEntity());
         }
     }
 

@@ -74,16 +74,16 @@ public class PlayerPositionManager {
      * 记录玩家当前所在位置（下线 / 服务器关闭时调用）
      */
     public void record(ServerPlayer player) {
-        if (player == null || player.level() == null) {
+        if (player == null || player.level == null) {
             return;
         }
         String name = player.getGameProfile().getName();
         Vec3 pos = player.position();
-        Level level = player.level();
+        Level level = player.level;
         positions.put(name, new SavedPosition(
                 level.dimension().location().toString(),
                 pos.x, pos.y, pos.z,
-                player.getYRot(), player.getXRot(),
+                player.yRot, player.xRot,
                 System.currentTimeMillis()
         ));
     }

@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -40,8 +40,8 @@ public final class TpOfflineCommand {
         // 目标玩家在线：直接传送到其当前位置
         ServerPlayer online = source.getServer().getPlayerList().getPlayerByName(targetName);
         if (online != null) {
-            executor.teleportTo((ServerLevel) online.level(), online.getX(), online.getY(), online.getZ(),
-                    online.getYRot(), online.getXRot());
+            executor.teleportTo((ServerLevel) online.level, online.getX(), online.getY(), online.getZ(),
+                    online.yRot, online.xRot);
             source.sendSuccess(() -> Component.literal("§a已传送到在线玩家 §b" + targetName), true);
             return 1;
         }
@@ -53,7 +53,7 @@ public final class TpOfflineCommand {
             return 0;
         }
 
-        ResourceKey<Level> dimensionKey = ResourceKey.create(Registries.DIMENSION, ResourceLocation.tryParse(saved.dimension));
+        ResourceKey<Level> dimensionKey = ResourceKey.create(Registry.DIMENSION, ResourceLocation.tryParse(saved.dimension));
         ServerLevel world = source.getServer().getLevel(dimensionKey);
         if (world == null) {
             world = source.getServer().overworld();
