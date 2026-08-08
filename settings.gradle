@@ -1,0 +1,4 @@
+// 根项目仅用于存放 gradle wrapper 与文档
+// 三个平台是独立 Gradle 项目：fabric / forge / neoforge
+// 构建方式：./gradlew -p fabric build  （或 forge / neoforge）
+rootProject.name = 'tpoffline'

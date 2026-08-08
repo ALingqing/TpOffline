@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+
+[[mods]]
+modId="tpoffline"
+version="${version}"
+displayName="TpOffline"
+description="传送到离线玩家最后下线位置，指令 /tpo <玩家名>（NeoForge 版）"
+authors="ChenRay"
+
+[[dependencies.tpoffline]]
+modId="neoforge"
+mandatory=true
+versionRange="[21.1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.tpoffline]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.21.1,1.22)"
+ordering="NONE"
+side="BOTH"

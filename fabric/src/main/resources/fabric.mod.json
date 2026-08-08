@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "tpoffline",
+  "version": "${version}",
+  "name": "TpOffline",
+  "description": "传送到离线玩家最后下线位置，指令 /tpo <玩家名>（Fabric 版）",
+  "authors": [
+    "ChenRay"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.chenray.tpoffline.fabric.TpOfflineFabric"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

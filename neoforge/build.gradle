@@ -1,0 +1,47 @@
+plugins {
+    id 'net.neoforged.moddev' version '2.0.143'
+}
+
+group = 'com.chenray'
+version = project.mod_version
+
+base {
+    archivesName = 'tpoffline-neoforge'
+}
+
+// 共享 common 源码（跨平台核心逻辑）
+sourceSets {
+    main {
+        java.srcDirs += ['../common/src/main/java']
+    }
+}
+
+neoForge {
+    version = '21.1.248'
+}
+
+dependencies {
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+jar {
+    from("${rootDir}/../LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
