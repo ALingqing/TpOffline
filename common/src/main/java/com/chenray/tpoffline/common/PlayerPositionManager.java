@@ -81,7 +81,7 @@ public class PlayerPositionManager {
         Vec3 pos = player.position();
         Level level = player.level();
         positions.put(name, new SavedPosition(
-                level.dimension().getLocation().toString(),
+                level.dimension().identifier().toString(),
                 pos.x, pos.y, pos.z,
                 player.getYRot(), player.getXRot(),
                 System.currentTimeMillis()

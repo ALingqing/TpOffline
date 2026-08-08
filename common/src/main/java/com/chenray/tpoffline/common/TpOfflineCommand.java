@@ -27,7 +27,7 @@ public final class TpOfflineCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, PlayerPositionManager positionManager) {
         dispatcher.register(Commands.literal("tpo")
-                .requires(source -> source.hasPermission(
+                .requires(source -> source.permissions().hasPermission(
                         new Permission.HasCommandLevel(PermissionLevel.GAMEMASTERS))) // 需要 OP（2 级权限）
                 .then(Commands.argument("player", StringArgumentType.word())
                         .executes(context -> execute(
