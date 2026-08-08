@@ -6,6 +6,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.StringTextComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -32,24 +33,25 @@ public final class TpOfflineCommand {
     }
 
     private static int execute(CommandSourceStack source, String targetName, PlayerPositionManager positionManager) {
-        if (!(source.getEntity() instanceof ServerPlayer executor)) {
-            source.sendFailure(Component.literal("§c该指令只能由玩家在游戏内执行"));
+        if (!(source.getEntity() instanceof ServerPlayer)) {
+            source.sendFailure(new StringTextComponent("§c该指令只能由玩家在游戏内执行"));
             return 0;
         }
+        ServerPlayer executor = (ServerPlayer) source.getEntity();
 
         // 目标玩家在线：直接传送到其当前位置
         ServerPlayer online = source.getServer().getPlayerList().getPlayerByName(targetName);
         if (online != null) {
             executor.teleportTo((ServerLevel) online.level, online.getX(), online.getY(), online.getZ(),
                     online.yRot, online.xRot);
-            source.sendSuccess(() -> Component.literal("§a已传送到在线玩家 §b" + targetName), true);
+            source.sendSuccess(() -> new StringTextComponent("§a已传送到在线玩家 §b" + targetName), true);
             return 1;
         }
 
         // 目标玩家离线：使用其最后下线位置
         PlayerPositionManager.SavedPosition saved = positionManager.get(targetName);
         if (saved == null) {
-            source.sendFailure(Component.literal("§c找不到玩家 §b" + targetName + " §c的下线位置记录"));
+            source.sendFailure(new StringTextComponent("§c找不到玩家 §b" + targetName + " §c的下线位置记录"));
             return 0;
         }
 
@@ -60,7 +62,7 @@ public final class TpOfflineCommand {
         }
 
         executor.teleportTo(world, saved.x, saved.y, saved.z, saved.yaw, saved.pitch);
-        source.sendSuccess(() -> Component.literal("§a已传送到 §b" + targetName
+        source.sendSuccess(() -> new StringTextComponent("§a已传送到 §b" + targetName
                 + " §a最后下线位置 §7["
                 + saved.dimension.replace("minecraft:", "") + " "
                 + (int) saved.x + ", " + (int) saved.y + ", " + (int) saved.z + "]"), true);
