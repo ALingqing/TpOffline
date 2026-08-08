@@ -1,6 +1,6 @@
-# TpOffline 模组
+# TpOffline 模组（Minecraft 26.1）
 
-Minecraft **Fabric 1.21.1** 模组：传送到离线玩家的最后下线位置。
+传送到离线玩家的最后下线位置。本分支（`mc-26.1`）为 **Fabric** 平台。
 
 ## 功能
 
@@ -9,19 +9,23 @@ Minecraft **Fabric 1.21.1** 模组：传送到离线玩家的最后下线位置�
   - 目标离线：传送到其**最后下线位置**（跨维度自动切换）
 - 玩家下线、服务器关闭时自动记录位置，数据存在每个存档目录下 `tpoffline/positions.json`
 
+## 支持平台
+
+| 平台 | Minecraft 版本 |
+| --- | --- |
+| Fabric | 26.1（Fabric Loader ≥ 0.19.0，Fabric API 任意版本） |
+
 ## 使用要求
 
 | 项目 | 要求 |
 | --- | --- |
-| Minecraft | 1.21.1 |
-| 模组加载器 | Fabric Loader ≥ 0.16.0 |
-| 前置 | Fabric API（任意版本） |
+| Minecraft | 26.1 |
 | 权限 | OP（2 级权限），与 `/tp` 一致 |
 | Java | 21 |
 
 ## 安装
 
-1. 安装 [Fabric Loader](https://fabricmc.net/use/installer/)（服务端/客户端均可）
+1. 安装 [Fabric Loader](https://fabricmc.net/use/installer/) 26.1
 2. 下载本模组 jar 和 [Fabric API](https://modrinth.com/mod/fabric-api)
 3. 放入 `mods/` 文件夹，启动游戏
 
@@ -47,17 +51,14 @@ Minecraft **Fabric 1.21.1** 模组：传送到离线玩家的最后下线位置�
 ## 本地构建
 
 ```bash
-./gradlew build
+./gradlew -p fabric build
 ```
 
-产物在 `build/libs/tpoffline-1.0.0.jar`（不含 sources 后缀的那个）。
+产物在 `fabric/build/libs/` 目录下。
 
-## GitHub Actions 自动构建
+## 版本分支
 
-仓库已包含 `.github/workflows/build.yml`。推送到 GitHub 后：
-
-1. 进入仓库 **Actions** 页面，构建成功后
-2. 点击对应构建记录，在底部 **Artifacts** 下载 `tpoffline-mod` 压缩包
+本仓库按 Minecraft 版本维护分支（`mc-<版本>`），每个分支只包含该版本适用的平台。
 3. 解压后得到模组 jar
 
 也可以在 Actions 页面手动触发 **Run workflow** 重新构建。
