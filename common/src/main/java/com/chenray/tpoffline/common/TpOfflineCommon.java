@@ -49,12 +49,11 @@ public final class TpOfflineCommon {
     /**
      * 玩家下线：记录位置并保存
      */
-    public static void onPlayerQuit(ServerPlayer player) {
+    public static void onPlayerQuit(ServerPlayer player, MinecraftServer server) {
         if (player == null) {
             return;
         }
         POSITIONS.record(player);
-        MinecraftServer server = player.getServer();
         if (server != null) {
             POSITIONS.save(server);
         }
