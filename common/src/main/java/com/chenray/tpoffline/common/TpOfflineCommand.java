@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -53,7 +53,7 @@ public final class TpOfflineCommand {
             return 0;
         }
 
-        ResourceKey<Level> dimensionKey = ResourceKey.create(Registries.DIMENSION, ResourceLocation.tryParse(saved.dimension));
+        ResourceKey<Level> dimensionKey = ResourceKey.create(Registry.DIMENSION, ResourceLocation.tryParse(saved.dimension));
         ServerLevel world = source.getServer().getLevel(dimensionKey);
         if (world == null) {
             world = source.getServer().overworld();
