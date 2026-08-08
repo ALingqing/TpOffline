@@ -2,8 +2,8 @@ package com.chenray.tpoffline.common;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
+import net.minecraft.command.CommandSourceStack;
+import net.minecraft.command.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.StringTextComponent;
@@ -44,7 +44,7 @@ public final class TpOfflineCommand {
         if (online != null) {
             executor.teleportTo((ServerLevel) online.level, online.getX(), online.getY(), online.getZ(),
                     online.yRot, online.xRot);
-            source.sendSuccess(() -> new StringTextComponent("§a已传送到在线玩家 §b" + targetName), true);
+            source.sendSuccess(new StringTextComponent("§a已传送到在线玩家 §b" + targetName), true);
             return 1;
         }
 
@@ -62,7 +62,7 @@ public final class TpOfflineCommand {
         }
 
         executor.teleportTo(world, saved.x, saved.y, saved.z, saved.yaw, saved.pitch);
-        source.sendSuccess(() -> new StringTextComponent("§a已传送到 §b" + targetName
+        source.sendSuccess(new StringTextComponent("§a已传送到 §b" + targetName
                 + " §a最后下线位置 §7["
                 + saved.dimension.replace("minecraft:", "") + " "
                 + (int) saved.x + ", " + (int) saved.y + ", " + (int) saved.z + "]"), true);

@@ -1,7 +1,7 @@
 package com.chenray.tpoffline.common;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.command.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import org.slf4j.Logger;
