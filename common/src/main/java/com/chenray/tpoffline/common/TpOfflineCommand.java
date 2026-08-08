@@ -43,7 +43,7 @@ public final class TpOfflineCommand {
         if (online != null) {
             executor.teleportTo((ServerLevel) online.level, online.getX(), online.getY(), online.getZ(),
                     online.getYRot(), online.getXRot());
-            source.sendSuccess(() -> new TextComponent("§a已传送到在线玩家 §b" + targetName), true);
+            source.sendSuccess(new TextComponent("§a已传送到在线玩家 §b" + targetName), true);
             return 1;
         }
 
@@ -54,14 +54,14 @@ public final class TpOfflineCommand {
             return 0;
         }
 
-        ResourceKey<Level> dimensionKey = ResourceKey.create(Registry.DIMENSION, ResourceLocation.tryParse(saved.dimension));
+        ResourceKey<Level> dimensionKey = ResourceKey.create(Registry.DIMENSION_REGISTRY, ResourceLocation.tryParse(saved.dimension));
         ServerLevel world = source.getServer().getLevel(dimensionKey);
         if (world == null) {
             world = source.getServer().overworld();
         }
 
         executor.teleportTo(world, saved.x, saved.y, saved.z, saved.yaw, saved.pitch);
-        source.sendSuccess(() -> new TextComponent("§a已传送到 §b" + targetName
+        source.sendSuccess(new TextComponent("§a已传送到 §b" + targetName
                 + " §a最后下线位置 §7["
                 + saved.dimension.replace("minecraft:", "") + " "
                 + (int) saved.x + ", " + (int) saved.y + ", " + (int) saved.z + "]"), true);
