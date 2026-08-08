@@ -19,7 +19,7 @@ public class TpOfflineFabric implements ModInitializer {
 
         // 玩家下线时记录位置
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) ->
-                TpOfflineCommon.onPlayerQuit(handler.getPlayer()));
+                TpOfflineCommon.onPlayerQuit(handler.getPlayer(), server));
 
         // 服务器启动加载记录
         ServerLifecycleEvents.SERVER_STARTING.register(TpOfflineCommon::onServerStarting);
