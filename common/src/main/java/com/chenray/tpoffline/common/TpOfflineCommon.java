@@ -1,9 +1,9 @@
 package com.chenray.tpoffline.common;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.command.CommandSourceStack;
+import net.minecraft.command.CommandSource;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,7 @@ public final class TpOfflineCommon {
     /**
      * 平台入口调用：注册 /tpo 指令
      */
-    public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
+    public static void registerCommands(CommandDispatcher<CommandSource> dispatcher) {
         TpOfflineCommand.register(dispatcher, POSITIONS);
     }
 
@@ -49,7 +49,7 @@ public final class TpOfflineCommon {
     /**
      * 玩家下线：记录位置并保存
      */
-    public static void onPlayerQuit(ServerPlayer player) {
+    public static void onPlayerQuit(ServerPlayerEntity player) {
         if (player == null) {
             return;
         }

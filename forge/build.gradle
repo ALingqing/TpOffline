@@ -1,5 +1,5 @@
 plugins {
-    id 'net.minecraftforge.gradle' version '5.1.77'
+    id 'net.minecraftforge.gradle' version '4.1.16'
 }
 
 group = 'com.chenray'
@@ -15,7 +15,8 @@ sourceSets {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.16.5'
+    // 1.16.5 用 MCP 快照映射（编译环境为可读的 MCP 名）
+    mappings channel: 'snapshot', version: '20210309-1.16.5'
 }
 
 dependencies {
@@ -30,6 +31,8 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
+    // 源码为 UTF-8 编码（避免 Windows 本地 GBK 误读）
+    it.options.encoding = 'UTF-8'
     // Forge 1.16.5 目标为 Java 8（用 -source/-target，避免 --release 被 FG 内部 JDK8 javac 拒绝）
     it.sourceCompatibility = JavaVersion.VERSION_1_8
     it.targetCompatibility = JavaVersion.VERSION_1_8

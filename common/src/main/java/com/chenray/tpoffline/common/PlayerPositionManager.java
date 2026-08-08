@@ -4,11 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.LevelResource;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import net.minecraft.world.storage.FolderName;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -73,17 +74,17 @@ public class PlayerPositionManager {
     /**
      * 记录玩家当前所在位置（下线 / 服务器关闭时调用）
      */
-    public void record(ServerPlayer player) {
-        if (player == null || player.level == null) {
+    public void record(ServerPlayerEntity player) {
+        if (player == null || player.world == null) {
             return;
         }
         String name = player.getGameProfile().getName();
-        Vec3 pos = player.position();
-        Level level = player.level;
+        Vector3d pos = player.getPositionVec();
+        World world = player.world;
         positions.put(name, new SavedPosition(
-                level.dimension().location().toString(),
+                world.getDimensionKey().getLocation().toString(),
                 pos.x, pos.y, pos.z,
-                player.yRot, player.xRot,
+                player.rotationYaw, player.rotationPitch,
                 System.currentTimeMillis()
         ));
     }
@@ -104,7 +105,8 @@ public class PlayerPositionManager {
 
     private static Path resolvePath(MinecraftServer server) {
         // <世界根目录>/tpoffline/positions.json （存档独立，多存档互不干扰）
-        return server.getWorldPath(LevelResource.ROOT)
+        // func_240776_a_ = getWorldPath（该 MCP 快照未提供可读名，保留 srg 名）
+        return server.func_240776_a_(FolderName.DOT)
                 .resolve("tpoffline")
                 .resolve("positions.json");
     }
