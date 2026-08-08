@@ -1,4 +1,4 @@
-plugins {
+﻿plugins {
     id 'fabric-loom' version '1.17.19'
     id 'maven-publish'
 }
@@ -24,7 +24,7 @@ sourceSets {
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     // 使用官方映射（与 Forge / NeoForge 一致，common 代码三平台共用）
-    mappings loom.officialMojangMappings()
+    
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
