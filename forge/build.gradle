@@ -31,8 +31,8 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     // Forge 1.16.5 目标为 Java 8（用 -source/-target，避免 --release 被 FG 内部 JDK8 javac 拒绝）
-    it.options.sourceCompatibility = '1.8'
-    it.options.targetCompatibility = '1.8'
+    it.sourceCompatibility = JavaVersion.VERSION_1_8
+    it.targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 java {
