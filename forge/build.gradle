@@ -43,6 +43,21 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+// FG 4.1.16 在 CI 上无法从 files.minecraftforge.net 下载 MCP 数据（301 重定向问题），
+// 预放置已生成的 srg_to_snapshot tsrg 到 FG 缓存，跳过下载
+tasks.withType(JavaCompile).configureEach {
+    doFirst {
+        def fgCache = new File(gradle.gradleUserHomeDir,
+                "caches/forge_gradle/minecraft_user_repo/de/oceanlabs/mcp/mcp_config/1.16.5-20210115.111550/srg_to_snapshot_20210309-1.16.5.tsrg")
+        def src = new File(rootDir.parentFile, "forge/srg_to_snapshot_20210309-1.16.5.tsrg")
+        if (src.exists() && !fgCache.exists()) {
+            fgCache.parentFile.mkdirs()
+            java.nio.file.Files.copy(src.toPath(), fgCache.toPath())
+            println "预放置 srg_to_snapshot tsrg -> $fgCache"
+        }
+    }
+}
+
 jar {
     from("${rootDir}/../LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }

@@ -22,15 +22,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # 预下载 MCP 映射数据（FG 4.1.16 在 CI 上直连 files.minecraftforge.net 下载失败）
-      - name: Pre-download MCP data
-        run: |
-          MCP_DIR="$HOME/.gradle/caches/forge_gradle/maven_downloader/de/oceanlabs/mcp/mcp_snapshot/20210309-1.16.5"
-          mkdir -p "$MCP_DIR"
-          curl -fsSL -o "$MCP_DIR/mcp_snapshot-20210309-1.16.5.zip" \
-            "https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp_snapshot/20210309-1.16.5/mcp_snapshot-20210309-1.16.5.zip"
-          echo "61dfa77f6f2eab4a658d390c0517dc4e" > "$MCP_DIR/mcp_snapshot-20210309-1.16.5.zip.md5"
-
       # 每个分支只构建该版本适用的平台（目录存在的平台才会被构建）
       - name: Build platforms
         shell: bash
